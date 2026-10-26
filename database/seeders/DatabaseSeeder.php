@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Aula;
+use App\Models\Edificio;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $edificio = Edificio::create(['nombre' => 'Edificio C']);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        foreach (['C1', 'C2', 'C3', 'C4', 'C5'] as $nombre) {
+            Aula::create([
+                'nombre'      => $nombre,
+                'capacidad'   => 30,
+                'wifi'        => true,
+                'edificio_id' => $edificio->id,
+            ]);
+        }
     }
 }
