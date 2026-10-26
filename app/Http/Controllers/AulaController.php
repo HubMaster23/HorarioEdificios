@@ -34,20 +34,13 @@ class AulaController extends Controller
      */
     public function store(Request $request)
     {
-        echo "guardo en la base de datos";        
-//        dump($request->all());
-
         $aula = new Aula();
-        $aula->nombre =  $request->input('nombre');
-        $aula->capacidad =  $request->input('capacidad');
-        if($request->input('wifi',"NO")=="ON"){
-            $aula->wifi = true;
-        }else{
-            $aula->wifi = false;
-        }
+        $aula->nombre = $request->input('nombre');
+        $aula->capacidad = $request->input('capacidad');
+        $aula->wifi = $request->has('wifi');
         $aula->save();
-        return redirect(route('aulas.listar'));
 
+        return redirect(route('aulas.listar'));
     }
 
     /**
@@ -71,23 +64,15 @@ class AulaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $x) //Aula $aula
+    public function update(Request $request, $x)
     {
-//        dump($x);
-//        dump($request->all());
-        //ANTERIOR = NUEVO
         $anterior = Aula::find($x);
         $anterior->nombre = $request->input('nombre');
-        $anterior->capacidad =  $request->input('capacidad');
-        if($request->input('wifi',"NO")=="ON"){
-            $anterior->wifi = true;
-        }else{
-            $anterior->wifi = false;
-        }
+        $anterior->capacidad = $request->input('capacidad');
+        $anterior->wifi = $request->has('wifi');
         $anterior->save();
-        echo "actualiza el aula";
-        return redirect(route('aulas.listar'));
 
+        return redirect(route('aulas.listar'));
     }
 
     /**
@@ -95,9 +80,9 @@ class AulaController extends Controller
      */
     public function destroy($x)
     {
-        echo "Borrar el aula $x";
         $anterior = Aula::find($x);
         $anterior->delete();
+
         return redirect(route('aulas.listar'));
     }
 }
