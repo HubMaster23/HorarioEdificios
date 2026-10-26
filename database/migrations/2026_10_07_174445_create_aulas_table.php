@@ -16,6 +16,11 @@ return new class extends Migration
             $table->string('nombre');
             $table->integer('capacidad');
             $table->boolean('wifi');
+            // Llave foránea: cada aula pertenece a un edificio
+            $table->foreignId('edificio_id')
+                  ->nullable()
+                  ->constrained('edificios')
+                  ->nullOnDelete();
             $table->timestamps();
         });
     }
